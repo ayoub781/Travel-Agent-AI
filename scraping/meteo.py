@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 
 def scrape_meteo_actuelle(country,city):
+    print(f" Fonction scrape_meteo_actuelle appelée")
     country=country.lower()
     city=city.lower()
     
@@ -30,6 +31,7 @@ def scrape_meteo_actuelle(country,city):
 
 #print(scrape_meteo_actuelle("japan","Nagasaki")) 
 def scrape_meteo_historique(country,city,month):
+    print(f" Fonction scrape_meteo_historique appelée")
     country=country.lower()
     city=city.lower()
     month=month.lower()
@@ -95,8 +97,3 @@ def scrape_meteo_historique(country,city,month):
         "Low_temp": Low_Temp
     }
 
-
-
-#restes a ajouter le try except ensuite tu ajouteras pour choisir la ville en fonction du mois etc. on va combiner ces 
-#possibilite au sein de la meme fonction . MAIS DUCOUP FAUT AVOIR ACCES A TIME ZONE? ET SUROUT VU QUE CEST DU FUTR? BAH FAUT
-#TRAITER DE CA dans le passé et le llm donnera une tendance sur a bonne periode ouo nan je crois bien .. 

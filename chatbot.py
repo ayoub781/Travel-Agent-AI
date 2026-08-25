@@ -1,4 +1,5 @@
 from scraping.meteo import scrape_meteo_historique,scrape_meteo_actuelle
+from scraping.vols import scrape_vols
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -61,10 +62,40 @@ class TravelAgent:
                 }
             }
 
+        },
+        {
+    "type": "function",
+    "function": {
+        "name": "scrape_vols",
+        "description": "Recherche les prix de vols aller-retour entre deux aéroports pour des dates spécifiques. Utilise cette fonction quand l'utilisateur veut connaître le prix d'un vol ou planifier un voyage avec des dates précises.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "departure": {
+                    "type": "string",
+                    "description": "Code IATA de l'aéroport de départ en MAJUSCULES (ex: CDG pour Paris, NCE pour Nice, LHR pour Londres)"
+                },
+                "arrival": {
+                    "type": "string",
+                    "description": "Code IATA de l'aéroport d'arrivée en MAJUSCULES (ex: HND pour Tokyo Haneda, NRT pour Tokyo Narita, BKK pour Bangkok)"
+                },
+                "outbound_date": {
+                    "type": "string",
+                    "description": "Date du vol aller au format YYYY-MM-DD (ex: 2027-01-15)"
+                },
+                "return_date": {
+                    "type": "string",
+                    "description": "Date du vol retour au format YYYY-MM-DD (ex: 2027-02-15)"
+                }
+            },
+            "required": ["departure", "arrival", "outbound_date", "return_date"]
         }
+    }
+}
         ]
         self.available_function={"scrape_meteo_historique":scrape_meteo_historique,
-                            "scrape_meteo_actuelle":scrape_meteo_actuelle
+                            "scrape_meteo_actuelle":scrape_meteo_actuelle,
+                            "scrape_vols":scrape_vols
         }
         self.message=[{"role":"system","content":
                        """
