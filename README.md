@@ -1,4 +1,4 @@
-# Travel Agent AI — Chatbot météo & vols
+# Travel Agent AI — Agent IA météo & vols
 
 Un agent IA qui scrape les données météo et les prix de vols en temps réel pour recommander la meilleure période de voyage.
 
