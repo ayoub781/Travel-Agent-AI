@@ -23,7 +23,7 @@ if user_input:
     with st.chat_message("assistant"):
         with st.spinner("Recherche en cours... (peut prendre 2-3 min)"):
             r = requests.post(
-                "http://127.0.0.1:5000/Chat",
+                "https://travel-agent-ai-vcb0.onrender.com",
                 json={"message": user_input},
                 timeout=600
             )
