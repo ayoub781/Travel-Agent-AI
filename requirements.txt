@@ -1,0 +1,7 @@
+openai
+flask
+selenium
+webdriver-manager
+python-dotenv
+requests
+streamlit
