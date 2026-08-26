@@ -6,6 +6,8 @@ from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 
 def scrape_meteo_actuelle(country,city):
     print(f" Fonction scrape_meteo_actuelle appelée")
@@ -13,10 +15,15 @@ def scrape_meteo_actuelle(country,city):
     city=city.lower()
     
     options = Options()
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-    driver = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()), options=options)
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.binary_location = "/usr/bin/chromium"
+    
+    driver = webdriver.Chrome(
+        service=Service("/usr/bin/chromedriver"),
+        options=options
+    )
     driver.get(f"https://www.timeanddate.com/weather/{country}")
     time.sleep(2)
     table=driver.find_element(By.CSS_SELECTOR,"table.zebra.fw.tb-wt.zebra.va-m")
@@ -63,11 +70,18 @@ def scrape_meteo_historique(country,city,month):
     "novembre": "november",
     "décembre": "december"
     }
+   
+
     options = Options()
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-    driver = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()), options=options)
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.binary_location = "/usr/bin/chromium"
+
+    driver = webdriver.Chrome(
+    service=Service("/usr/bin/chromedriver"),
+    options=options
+    )
     driver.get(f"https://www.timeanddate.com/weather/{country}/{city}/climate")
     select_mois=Select(driver.find_element(By.ID,"tb-climate-select"))
     if month in month_converted:
