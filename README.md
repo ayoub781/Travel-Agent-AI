@@ -1,4 +1,4 @@
-# Travel Agent AI — Agent IA météo & vols
+# Travel Agent AI — Chatbot météo & vols
 
 Un agent IA qui scrape les données météo et les prix de vols en temps réel pour recommander la meilleure période de voyage.
 
@@ -144,19 +144,30 @@ streamlit run streamlit_app.py
 - **Fenêtre de contexte** — Nous utiliserons pour cela un rag, car le probleme du tronquage est qu'il peut couper l'historique au mauvais endorit.
 - **API REST** — POST /chat exposé via Flask
 - **Scraping anti-détection** — User-Agent, délais aléatoires, disable-blink-features
+- **Google Flights API** — Recherche aller-retour avec booking token et lien de réservation direct
+- **Dockerisation** — Dockerfile pour déploiement avec Chromium sur Linux
 
 ---
 
 ## Roadmap
 
 - [x] Scraper météo Tokyo (timeanddate.com)
-- [ ] Scraper prix vols (rome2rio.com)
-- [ ] Intégrer dans l'agent via function calling
-- [ ] Boucle agentique ReAct
-- [ ] API Flask
-- [ ] Interface Streamlit
-- [ ] Métriques d'évaluation (précision, recall, RAGAS)
+- [x] Api prix vols (searchapi.io)
+- [x] Intégrer dans l'agent via function calling
+- [x] Boucle agentique ReAct
+- [x] API Flask
+- [x] Interface Streamlit
+- [ ] Métriques d'évaluation (latence, tool accuracy, human eval)
 - [ ] Multi-destinations (Japon, Vietnam, Thaïlande...)
-- [ ] Alertes prix par email
+- [ ] Alertes prix par email (optionnel)
 
+## Déploiement
+
+L'API Flask nécessite Selenium + Chromium pour le scraping météo, ce qui dépasse les limites du plan gratuit(Render timeout).
+**En attendant** — pour tester localement :
+
+```bash
+python app.py          # Lance l'API Flask
+streamlit run streamlit_app.py  # Lance l'interface
+```
 
