@@ -5,3 +5,4 @@ webdriver-manager
 python-dotenv
 requests
 streamlit
+better-profanity

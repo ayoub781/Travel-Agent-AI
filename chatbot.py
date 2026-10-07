@@ -4,6 +4,8 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import json
+   
+from guardrails import input_guardrail, output_guardrail
 load_dotenv()
 api_key=os.getenv("api_key")
 
@@ -122,9 +124,12 @@ class TravelAgent:
                        """}]
     def chat(self,user_input):
 
+        
+        input_ok,msg=input_guardrail(user_input)
+        print(f"Guardrail result: {input_ok}, {msg}")
+        if not input_ok:
+            return msg,0
         self.message.append({"role":"user","content":user_input})
-    
-      
         counter=0
         max_iteration=10
         while True:
@@ -152,8 +157,12 @@ class TravelAgent:
                 
                 counter+=1
             else:
-                self.message.append(response.choices[0].message)#ici car An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'
-                return answer,counter
+                output_ok,msg=output_guardrail(answer)
+                if not output_ok:
+                    return msg,0
+                else:
+                    self.message.append(response.choices[0].message)#ici car An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'
+                    return answer,counter
 
 
 if __name__=="__main__":

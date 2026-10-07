@@ -25,7 +25,7 @@ Agent :
 
 ```
 Selenium scrape timeanddate.com  →  meteo.json
-Selenium scrape rome2rio.com     →  vols.json
+API searchapi.io                      →  vols.json
                 ↓
         Function Calling (tools OpenAI)
         get_meteo(destination)
@@ -82,7 +82,7 @@ Notre agent : "Aujourd'hui le vol du 15 octobre est à 487€
 | Donnée | Source | Méthode |
 |--------|--------|---------|
 | Météo par destination | timeanddate.com | Selenium |
-| Prix de vols | rome2rio.com | Selenium |
+| Prix de vols | searchapi.io 
 
 ---
 
@@ -92,7 +92,7 @@ Notre agent : "Aujourd'hui le vol du 15 octobre est à 487€
 travel-agent/
 ├── scraping/
 │   ├── meteo.py          # scraper timeanddate.com
-│   ├── vols.py           # scraper rome2rio.com
+│   ├── vols.py           # API searchapi.io
 │   ├── meteo.json        # données météo scrappées
 │   └── vols.json         # données vols scrappées
 ├── chatbot/
@@ -157,6 +157,7 @@ streamlit run streamlit_app.py
 - [x] Boucle agentique ReAct
 - [x] API Flask
 - [x] Interface Streamlit
+- [x] Guardrail
 - [ ] Métriques d'évaluation (latence, tool accuracy, human eval)
 - [ ] Multi-destinations (Japon, Vietnam, Thaïlande...)
 - [ ] Alertes prix par email (optionnel)
